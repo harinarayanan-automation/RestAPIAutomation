@@ -1,0 +1,206 @@
+{
+	"info": {
+		"_postman_id": "4a11fb5a-74df-441e-987a-3c6fed68c143",
+		"name": "week2day1requestchanining",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25430161"
+	},
+	"item": [
+		{
+			"name": "createchangerequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"post change request\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"company name \",function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"dassult\")\r",
+							"})\r",
+							"\r",
+							"pm.test(\"short description \",function(){\r",
+							"    pm.expect(pm.response.text()).to.include(\"create a change request from postman\")\r",
+							"})\r",
+							"\r",
+							"//save response\r",
+							"var res = pm.response.json();\r",
+							"var systemid = res.result.sys_id; \r",
+							"pm.globals.set(\"SysID\",systemid) \r",
+							"console.log(res.result.sys_id)\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"short_description\":\"create a change request from postman\",\r\n\"description\":\"post method rest api\",\r\n\"company\":\"dassult\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/api/now/table/change_request",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"change_request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updatechangerequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"update change request\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"update short_description value \", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"updated from postman\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"short_description\":\"updated from postman\",\r\n\"description\":\"updated from rest api\"}  ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/api/now/table/{{changerequest}}/{{SysID}}?sysparm_fields=description,short_description",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"{{changerequest}}",
+						"{{SysID}}"
+					],
+					"query": [
+						{
+							"key": "sysparm_fields",
+							"value": "description,short_description"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deletechangerequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"delete change request\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://dev89343.service-now.com/api/now/table/change_request/{{SysID}}",
+					"protocol": "https",
+					"host": [
+						"dev89343",
+						"service-now",
+						"com"
+					],
+					"path": [
+						"api",
+						"now",
+						"table",
+						"change_request",
+						"{{SysID}}"
+					],
+					"query": [
+						{
+							"key": "sysparm_fields",
+							"value": "description,short_description",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "f4KlL%^Di6sO",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "changerequest",
+			"value": "change_request",
+			"type": "string"
+		}
+	]
+}
