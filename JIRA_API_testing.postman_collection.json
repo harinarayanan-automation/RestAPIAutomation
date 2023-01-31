@@ -1,0 +1,181 @@
+{
+	"info": {
+		"_postman_id": "d974f9ba-44b1-4811-b4ea-e91106b7e403",
+		"name": "JIRA_API_testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25430161"
+	},
+	"item": [
+		{
+			"name": "Createissuewithjira",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Creation of JIRA issue \", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"var jiraresp = pm.response.json();\r",
+							"var jiraissueid = jiraresp.id;\r",
+							"pm.globals.set(\"id\",jiraissueid)\r",
+							"console.log(jiraresp.id)\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": {\r\n        \"project\": {\r\n            \"key\": \"TMTNPRJCT\"\r\n        },\r\n        \"summary\": \"create issue in RA project\",\r\n        \"description\": \"Creating of an issue using project keys and issue type names using the REST API\",\r\n        \"issuetype\": {\r\n            \"name\": \"Bug\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://harirestapi2023.atlassian.net/rest/api/2/issue/",
+					"protocol": "https",
+					"host": [
+						"harirestapi2023",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updatedecriptionofissue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fields\": \r\n    {\r\n        \"description\": \"Bug creation Using REST API for testing\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://harirestapi2023.atlassian.net/rest/api/2/issue/{{id}}",
+					"protocol": "https",
+					"host": [
+						"harirestapi2023",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteissue",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"delete JIRA issue \", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://harirestapi2023.atlassian.net/rest/api/2/issue/{{id}}",
+					"protocol": "https",
+					"host": [
+						"harirestapi2023",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"2",
+						"issue",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "ATATT3xFfGF0zIazs6ZD3EeH92m9uLEY2k3tcIgsYvu3pyGbABBf_bTyml5IXt8O7wYV0I-z_43oPg2lUziAhtAS1iMFRCG1rZygL4DJkzCjPqwCpBAxSqt7MQMD8m2IqL2uCmxRfJSk4rtI9_QBAQEQgKUWcz_KLB4ZOmBPT30siCZDsgEYCWE=6026D8A9",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "harinarayanan.ooty@gmail.com",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
